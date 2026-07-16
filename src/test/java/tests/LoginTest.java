@@ -19,4 +19,15 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(loginPage.isErrorDisplayed(), "Error message should be displayed for invalid login");
     }
+    @Test
+    public void testValidLogin() {
+        driver.get("https://www.saucedemo.com/");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterUsername("standard_user");
+        loginPage.enterPassword("secret_sauce");
+        loginPage.clickLogin();
+
+        Assert.assertTrue(loginPage.isOnProductsPage(), "User should land on products page after valid login");
+    }
 }
