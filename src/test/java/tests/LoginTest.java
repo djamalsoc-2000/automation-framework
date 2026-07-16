@@ -5,27 +5,29 @@ import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
+import utilities.ConfigReader;
 
 public class LoginTest extends BaseTest {
 
     @Test
     public void testInvalidLogin() {
-        driver.get("https://www.saucedemo.com/");
+        driver.get(ConfigReader.get("url"));
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterUsername("wrong_user");
-        loginPage.enterPassword("wrong_password");
+        loginPage.enterUsername(ConfigReader.get("invalidUsername"));
+        loginPage.enterPassword(ConfigReader.get("invalidPassword"));
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.isErrorDisplayed(), "Error message should be displayed for invalid login");
     }
+
     @Test
     public void testValidLogin() {
-        driver.get("https://www.saucedemo.com/");
+        driver.get(ConfigReader.get("url"));
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterUsername("standard_user");
-        loginPage.enterPassword("secret_sauce");
+        loginPage.enterUsername(ConfigReader.get("validUsername"));
+        loginPage.enterPassword(ConfigReader.get("validPassword"));
         loginPage.clickLogin();
 
         Assert.assertTrue(loginPage.isOnProductsPage(), "User should land on products page after valid login");
