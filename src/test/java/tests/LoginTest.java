@@ -1,12 +1,14 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
 import utilities.ConfigReader;
 
+@Listeners(listeners.TestListener.class)
 public class LoginTest extends BaseTest {
 
     @Test
@@ -32,6 +34,7 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(loginPage.isOnProductsPage(), "User should land on products page after valid login");
     }
+
     @Test(dataProvider = "loginData", dataProviderClass = utilities.DataProviderUtil.class)
     public void testLoginWithMultipleUsers(String username, String password, String expectedResult) {
         driver.get(ConfigReader.get("url"));
