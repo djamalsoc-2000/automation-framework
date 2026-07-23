@@ -6,7 +6,9 @@ import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
+import pages.ProductsPage;
 import utilities.ConfigReader;
+import utilities.WaitUtils;
 
 @Listeners(listeners.TestListener.class)
 public class LoginTest extends BaseTest {
@@ -49,5 +51,23 @@ public class LoginTest extends BaseTest {
         } else {
             Assert.assertTrue(loginPage.isErrorDisplayed(), "Expected error message for user: " + username);
         }
+    }
+
+    @Test
+    public void testAddToCartWithWaits() {
+        driver.get(ConfigReader.get("url"));
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterUsername(ConfigReader.get("validUsername"));
+        loginPage.enterPassword(ConfigReader.get("validPassword"));
+        loginPage.clickLogin();
+
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.addFirstItemToCart();
+
+        Assert.assertTrue(
+            WaitUtils.explicitWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 5).isDisplayed(),
+            "Cart badge should appear after adding item (explicit wait)"
+        );
     }
 }
