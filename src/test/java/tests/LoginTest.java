@@ -70,4 +70,22 @@ public class LoginTest extends BaseTest {
             "Cart badge should appear after adding item (explicit wait)"
         );
     }
+
+    @Test
+    public void testAddToCartWithFluentWait() {
+        driver.get(ConfigReader.get("url"));
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterUsername(ConfigReader.get("validUsername"));
+        loginPage.enterPassword(ConfigReader.get("validPassword"));
+        loginPage.clickLogin();
+
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.addFirstItemToCart();
+
+        Assert.assertTrue(
+            WaitUtils.fluentWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 5, 500).isDisplayed(),
+            "Cart badge should appear after adding item (fluent wait)"
+        );
+    }
 }
