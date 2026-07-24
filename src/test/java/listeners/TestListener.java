@@ -53,7 +53,7 @@ public class TestListener implements ITestListener {
 
             File screenshotsDir = new File("screenshots");
             if (!screenshotsDir.exists()) {
-                screenshotsDir.mkdir();
+                screenshotsDir.mkdirs();
             }
 
             String destPath = "screenshots/" + testName + ".png";

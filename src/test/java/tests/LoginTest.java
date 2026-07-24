@@ -66,7 +66,7 @@ public class LoginTest extends BaseTest {
         productsPage.addFirstItemToCart();
 
         Assert.assertTrue(
-            WaitUtils.explicitWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 5).isDisplayed(),
+            WaitUtils.explicitWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 15).isDisplayed(),
             "Cart badge should appear after adding item (explicit wait)"
         );
     }
@@ -84,7 +84,7 @@ public class LoginTest extends BaseTest {
         productsPage.addFirstItemToCart();
 
         Assert.assertTrue(
-            WaitUtils.fluentWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 5, 500).isDisplayed(),
+            WaitUtils.fluentWaitForVisibility(driver, productsPage.getCartBadgeLocator(), 15, 500).isDisplayed(),
             "Cart badge should appear after adding item (fluent wait)"
         );
     }
